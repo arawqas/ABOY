@@ -1986,7 +1986,7 @@ Misc:AddToggle({
         webhookSending = Value
 
         if Value then
-            startWebhookSending()
+            
         end
     end
 })
