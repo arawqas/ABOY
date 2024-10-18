@@ -1,4 +1,4 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/luke1for1/zenith/main/orionMobile')))()
+https://raw.githubusercontent.com/arawqas/ABOY/refs/heads/main/cokiyilocal OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/luke1for1/zenith/main/orionMobile')))()
 local tweenService = game:GetService("TweenService")
 
 -- anti afk
@@ -236,71 +236,7 @@ local function getValue(item)
     return nil
 end
 
-local function sendWebhook()
-    if webhookUrl1 and fruitToSend then
-        local fruitValue = getValue(fruitToSend)
-        if fruitValue then
-            local difference = fruitValue - lastFruitValue
-            if lastFruitValue == 0 then
-                startFruitValue = fruitValue
-                difference = 0
-            end
-            lastFruitValue = fruitValue
 
-            local data = {
-                ["embeds"] = {{
-                    ["title"] = "Fruit Value Update",
-                    ["description"] = string.format("You have **%d** **%ss**.", fruitValue, fruitToSend),
-                    ["color"] = 3426654, 
-                    ["fields"] = {
-                        {
-                            ["name"] = "Starting Amount",
-                            ["value"] = tostring(startFruitValue),
-                            ["inline"] = true
-                        },
-                        {
-                            ["name"] = "Current Amount",
-                            ["value"] = tostring(fruitValue),
-                            ["inline"] = true
-                        },
-                        {
-                            ["name"] = "Amount made in the last " .. webhookInterval .. " minutes:",
-                            ["value"] = tostring(difference),
-                            ["inline"] = true
-                        }
-                    },
-                    ["footer"] = {
-                        ["text"] = "Zenith Productions",
-                        ["icon_url"] = ""  
-                    },
-                    ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
-                }}
-            }
-
-            local response = request({
-                Url = webhookUrl1,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = HttpService:JSONEncode(data)
-            })
-
-            if response.StatusCode ~= 200 then
-                print("Webhook failed with status code: " .. response.StatusCode)
-            end
-        end
-    end
-end
-
-local function startWebhookSending()
-    spawn(function()
-        while webhookSending do
-            sendWebhook()
-            wait(webhookInSeconds)
-        end
-    end)
-end
 
 local teamColors = {}
 
@@ -310,49 +246,6 @@ end
 
 local selectedTeamColor
 
-local function testWebhook()
-    if webhookUrl1 then
-        local data = {
-            ["embeds"] = {{
-                ["title"] = "Test Webhook",
-                ["description"] = "This is a test notification from Zenith.",
-                ["color"] = 3426654, 
-                ["fields"] = {
-                    {
-                        ["name"] = "Fruit",
-                        ["value"] = "Fruit Name",
-                        ["inline"] = true
-                    },
-                    {
-                        ["name"] = "Value",
-                        ["value"] = "Fruit Value",
-                        ["inline"] = true
-                    }
-                },
-                ["footer"] = {
-                    ["text"] = "Zenith Productions",
-                    ["icon_url"] = ""  
-                },
-                ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
-            }}
-        }
-
-        local response = request({
-            Url = webhookUrl1,
-            Method = "POST",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-            Body = HttpService:JSONEncode(data)
-        })
-
-        if response.StatusCode ~= 200 then
-            print("Test webhook failed with status code: " .. response.StatusCode)
-        else
-            print("Test webhook sent successfully.")
-        end
-    end
-end
 
 local mt = getrawmetatable(game)
 local oldIndex = mt.__index
@@ -2135,7 +2028,7 @@ Misc:AddSlider({
 Misc:AddButton({
     Name = "Test Webhook",
     Callback = function()
-        testWebhook()
+        
     end    
 })
 
