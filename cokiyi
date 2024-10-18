@@ -1,4 +1,4 @@
-
+local ReplicatedStorage = game.ReplicatedStorage
 local Packets = require(ReplicatedStorage.Modules.Packets)
 local ItemData = require(ReplicatedStorage.Modules.ItemData)
 local ItemIDS = require(ReplicatedStorage.Modules.ItemIDS)
