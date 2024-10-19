@@ -696,7 +696,7 @@ function FindClosestGold2()
     for _,v in next, workspace.Resources:GetChildren() do
         if v.Name ~= "Gold Node" then continue end
         for _,loc in next, GoldCFrames2 do
-            if (v:GetPivot().Position - loc.Position).Magnitude < 15 then
+            if (v:GetPivot().Position - loc.Position).Magnitude < 35 then
                 local dist = (game.Players.LocalPlayer.Character:GetPivot().Position - loc.Position).Magnitude
 
                 if dist < distance then
@@ -1370,7 +1370,7 @@ do
                         LocalPlayer.Character:PivotTo(p:GetPivot())
                     end)
     
-                    ice:FindFirstChild("Ice").CanCollide = false
+                    --ice:FindFirstChild("Ice").CanCollide = false
     
                     tween.Completed:Wait()
                     con:Disconnect()
