@@ -10,7 +10,7 @@ local LocalPlayer = Players.LocalPlayer
 
 if (require == nil or hookmetamethod == nil or request == nil) then
     Fluent:Notify({
-        Title = "immortal.tech beta",
+        Title = "Angel's library",
         Content = "Your executor is not supported for this script.",
         Duration = 8
     })
@@ -1322,7 +1322,7 @@ do
 
     task.spawn(function()
         while task.wait() do
-            if Auto_GoldFarm then
+            if Auto_GoldFarm2 then
 
                 local gold, dist = FindClosestGold()
     
