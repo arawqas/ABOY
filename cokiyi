@@ -1155,19 +1155,14 @@ do
     p.Transparency = 1
     local con
 
-    local fourNodesFarm = Farming:AddToggle("fourNodesFarm", {Title = "Autofarm 4 nodes (ice)", Default = false })
-    local CaveNodesFarm = Farming:AddToggle("CaveNodesFarm", {Title = "Autofarm 4 nodes (cave)", Default = false })
+    local fourNodesFarm = Farming:AddToggle("fourNodesFarm", {Title = "Autofarm 4 nodes (ice/cave)", Default = false })
+
 
     fourNodesFarm:OnChanged(function()
         Auto_GoldFarm = Fluent.Options.fourNodesFarm.Value
     end)
-    
-    CaveNodesFarm:OnChanged(function()
-        Auto_GoldFarm2 = Fluent.Options.CaveNodesFarm.Value
-    end)
 
     Fluent.Options.fourNodesFarm:SetValue(false)
-    Fluent.Options.CaveNodesFarm:SetValue(false)
 
     local autoPickupGold = Farming:AddToggle("autoPickupGold", {Title = "Auto Pickup Raw Gold", Default = false })
 
