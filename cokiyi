@@ -690,7 +690,7 @@ function FindClosestIce()
     return closest, distance
 end
 
-function FindClosestGold()
+function FindClosestGold2()
     local closest, distance = nil, 250
 
     for _,v in next, workspace.Resources:GetChildren() do
