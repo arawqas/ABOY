@@ -1160,6 +1160,7 @@ do
 
     fourNodesFarm:OnChanged(function()
         Auto_GoldFarm = Fluent.Options.fourNodesFarm.Value
+        Auto_GoldFarm2 = Fluent.Options.fourNodesFarm.Value
     end)
 
     Fluent.Options.fourNodesFarm:SetValue(false)
