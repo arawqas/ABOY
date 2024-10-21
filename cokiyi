@@ -104,7 +104,7 @@ local KillauraDistance = 25
 
 local AutohealEnabled = false
 local AutohealFruit = "Bloodfruit"
-local AutohealCPS = 18
+local AutohealCPS = 24
 local AutohealHealth = 50
 
 local AutoPlant_Enabled = false
@@ -1155,13 +1155,19 @@ do
     p.Transparency = 1
     local con
 
-    local fourNodesFarm = Farming:AddToggle("fourNodesFarm", {Title = "Autofarm 4 nodes (ice/cave)", Default = false })
+    local fourNodesFarm = Farming:AddToggle("fourNodesFarm", {Title = "Autofarm 4 nodes (Ice)", Default = false })
+    local CaveNodesFarm = Farming:AddToggle("CaveNodesFarm", {Title = "Autofarm 4 nodes (Cave)", Default = false })
 
 
     fourNodesFarm:OnChanged(function()
         Auto_GoldFarm = Fluent.Options.fourNodesFarm.Value
+    end)
+
+    CaveNodesFarm:OnChanged(function()
         Auto_GoldFarm2 = Fluent.Options.fourNodesFarm.Value
     end)
+    
+   
 
     Fluent.Options.fourNodesFarm:SetValue(false)
 
@@ -1320,7 +1326,7 @@ do
         while task.wait() do
             if Auto_GoldFarm2 then
 
-                local gold, dist = FindClosestGold()
+                local gold, dist = FindClosestGold2()
     
                 if gold then
                     if gold then
@@ -1349,70 +1355,9 @@ do
                         local sendBuff = buffer.create(offset)
                         buffer.copy(sendBuff, 0, buff, 0, offset)
 
-                        repeat Packets.SwingTool.send(sendBuff) task.wait(1/3) until
+                        repeat Packets.SwingTool.send(sendBuff) task.wait(.1) until
                         gold == nil or gold.Parent == nil or gold.PrimaryPart == nil or gold:FindFirstChild("Health") == nil or gold.Health.Value <= 0 or os.clock() - t > 10
                     end
-                else
-                    local ice, dist = FindClosestGold2()
-                    
-                    if ice then
-                    local ti = TweenInfo.new(dist/16, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
-    
-                    p.Position = LocalPlayer.Character:GetPivot().Position + Vector3.new(0, 4, 0)
-                    local tween = game:GetService("TweenService"):Create(p, ti, {Position = ice:GetPivot().Position})
-                    tween:Play()
-    
-                    con = p:GetPropertyChangedSignal("Position"):Connect(function()
-                        LocalPlayer.Character:PivotTo(p:GetPivot())
-                    end)
-    
-                    --ice:FindFirstChild("Ice").CanCollide = false
-    
-                    tween.Completed:Wait()
-                    con:Disconnect()
-    
-                    LocalPlayer.Character.PrimaryPart.Anchored = true
-    
-                    local t = os.clock()
-
-                    local size = 6
-                    local buff = buffer.create(size)
-                    local offset = 0
-                    buffer.writeu32(buff, offset, ice:GetAttribute("EntityID"))
-                    offset = offset + 4
-                    buffer.writeu16(buff, offset, offset / 4)
-                    offset = offset + 2
-                    local sendBuff = buffer.create(offset)
-                    buffer.copy(sendBuff, 0, buff, 0, offset)
-
-                    repeat Packets.SwingTool.send(sendBuff) task.wait(1/3) until
-                    ice == nil or ice.Parent == nil or ice.PrimaryPart == nil or ice:FindFirstChild("Health") == nil or ice.Health.Value <= 0 or LocalPlayer.Character.PrimaryPart.Anchored == false or os.clock() - t >= 10
-    
-                    task.wait(.1)
-
-                    local gold = FindClosestGold2()
-    
-                    local t = os.clock()
-    
-                    if gold then
-
-                        local size = 6
-                        local buff = buffer.create(size)
-                        local offset = 0
-                        buffer.writeu32(buff, offset, gold:GetAttribute("EntityID"))
-                        offset = offset + 4
-                        buffer.writeu16(buff, offset, offset / 4)
-                        offset = offset + 2
-                        local sendBuff = buffer.create(offset)
-                        buffer.copy(sendBuff, 0, buff, 0, offset)
-
-                        repeat Packets.SwingTool.send(sendBuff) task.wait(1/3) until
-                        gold == nil or gold.Parent == nil or gold.PrimaryPart == nil or gold:FindFirstChild("Health") == nil or gold.Health.Value <= 0 or LocalPlayer.Character.PrimaryPart.Anchored == false or os.clock() - t > 10
-                    end
-    
-                    LocalPlayer.Character.PrimaryPart.Anchored = false
-                    end
-                end
             else
                 LocalPlayer.Character.PrimaryPart.Anchored = false
                 if con then
