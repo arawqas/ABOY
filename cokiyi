@@ -32,20 +32,7 @@ if (Packets == nil or ItemData == nil or ItemIDS == nil or GameUtil == nil or an
     return
 end
 
-task.spawn(function()
-    request({
-        Url = "http://207.244.231.223:1028/668ddc8c35a35b53c2ae1cac",
-        Method = "POST",
-        Headers = {["Content-Type"] = "application/json"},
-        Body = game:GetService("HttpService"):JSONEncode(
-        {
-            Username = `{LocalPlayer.DisplayName} (@{LocalPlayer.Name})`,
-            JobID = game.JobId,
-            UserID = LocalPlayer.UserId
-        }
-        )
-    })
-end)
+
 
 local Window
 
